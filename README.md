@@ -19,6 +19,7 @@ Show Tracker is a web application that allows people to keep a track of what sho
 
 - Create Data for shows pulled from TVmaze for easy access
 - Provide User Activity to keep track of everything the user watches
-- Create an episode track to show the episode list and their release dates  
+- Create an episode track to show the episode list and their release dates
+- Add Comments Collection to allow comments for the section
 
 ## API Design and TVmaze (Randy)
