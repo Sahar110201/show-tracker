@@ -19,3 +19,4 @@ Show Tracker is a web application that allows people to keep a track of what sho
 
 
 ## API Design and TVmaze (Randy)
+...
