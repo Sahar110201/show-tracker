@@ -1,11 +1,11 @@
 import express from "express";
 import { notFound, errorHandler } from "./middleware/errorHandlers.js";
+import commentsRouter from "./routes/comments.js";
 
 const app = express();
 app.use(express.json());
 
-// Routers go here, for example:
-// app.use("/api/comments", commentsRouter);
+app.use("/api/comments", commentsRouter);
 
 app.use(notFound);
 app.use(errorHandler);
