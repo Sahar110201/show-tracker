@@ -10,7 +10,8 @@ app.use("/api/comments", commentsRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT ?? 4000;
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Campus Events API running at http://localhost:${PORT}`);
 });
