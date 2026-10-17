@@ -12,7 +12,7 @@ const commentSchema = z.object({
 const comments = [
   { id: crypto.randomUUID(), tvmazeId: 169, text: "Great first episode, cannot wait for the rest!" },
   { id: crypto.randomUUID(), tvmazeId: 169, text: "Cannot wait for the next one, I am so excited." },
-  { id: crypto.randomUUID(), tvmazeId: 82, text: "Rewatching this one for the 10th time!." },
+  { id: crypto.randomUUID(), tvmazeId: 82, text: "Rewatching this one for the 10th time!" },
 ];
 
 // This helps find a comment by its ID
