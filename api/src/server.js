@@ -2,16 +2,16 @@ import express from "express";
 import { notFound, errorHandler } from "./middleware/errorHandlers.js";
 import commentsRouter from "./routes/comments.js";
 
-const app = express();
-app.use(express.json());
+const app = express(); // This creates the Express App
+app.use(express.json()); // This allows the app to read the JSON data
 
-app.use("/api/comments", commentsRouter);
+app.use("/api/comments", commentsRouter); // This sets up the comments routes
 
-app.use(notFound);
-app.use(errorHandler);
+app.use(notFound); // This allows to handle requests to routes that do not exist
+app.use(errorHandler); // This handles the errors in the app
 
-const PORT = process.env.PORT ?? 4000;
+const PORT = process.env.PORT ?? 4000; // This sets the port and use 4000 
 
-app.listen(PORT, () => {
+app.listen(PORT, () => { // This starts the server
   console.log(`Campus Events API running at http://localhost:${PORT}`);
 });
