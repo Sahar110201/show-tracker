@@ -13,5 +13,5 @@ app.use(errorHandler); // This handles the errors in the app
 const PORT = process.env.PORT ?? 4000; // This sets the port and use 4000 
 
 app.listen(PORT, () => { // This starts the server
-  console.log(`Campus Events API running at http://localhost:${PORT}`);
+  console.log(`Show Tracker API running at http://localhost:${PORT}`);
 });
