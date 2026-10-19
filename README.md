@@ -13,4 +13,4 @@ Sahar: I used Claude to help correct my code and debug the code for M2. Whenever
 
 Misha: (write what you used AI for, or "no AI used")
 
-Randy: (write what you used AI for, or "no AI used")
+Randy: Used Claude code with debugging /controller/show.js, /routes/shows.js, tvmaze.js, server,js  and implementing TVmaze API and used it help me with the file structure
