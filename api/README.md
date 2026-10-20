@@ -75,6 +75,8 @@ Unknown id (404):
 curl -i http://localhost:4000/api/comments/not-a-real-id
 ```
 
+### Watchlist
+
 List Shows (200):
 ```
 curl -i http://localhost:4000/api/shows
