@@ -29,8 +29,9 @@ The server runs on http://localhost:4000.
 | GET | /api/watchlist/:id | This will show on specific watchlist item |
 | POST | /api/watchlist | This will add new item to our watchlist |
 | PUT | /api/watchlist/:id | This will update our watchlist |
-| DELTE | /api/watchlist/:id | This will delete a watchlist item |
-| (TVmaze stuff goes here) | | |
+| DELETE | /api/watchlist/:id | This will delete a watchlist item |
+| GET | /api/shows/search | search through TVMaze |
+| GET | /api/shows/:id | Returns a show by its ID |
 
 Change from M1: comments now have all five routes (M1 only listed add and get).
 
