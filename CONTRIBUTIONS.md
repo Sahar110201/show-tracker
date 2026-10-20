@@ -24,6 +24,10 @@ Added CONTRIBUTIONS and README files for folders
 
 Brainstormed on the Databse Design of the Project for MongoDB
 
+## M2: Express REST API
+
+For M2, I was responsible in creating a watchlist feature. I created both watchlist.js router and watchlistlogic.js controller that is responsible in listing items, searching one item, adding new items, updating them and removing them. I also added validation so API returns 400 message if we receive wrong information. 
+
 ## Randy
 
 ## M1: Proposal Plan
