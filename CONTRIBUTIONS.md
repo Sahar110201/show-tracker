@@ -32,3 +32,7 @@ Brainstormed on the API Deisgn and TVmaze
 
 Researched on Error Handling
 
+## M2: Express REST API
+
+For M2, I built the TVmaze routes: GET /api/shows/search?q= and GET /api/shows/:id. Responses use our own simple show format, answers are cached for 5 minutes, and errors return 400, 404, 502 or 504. I tested everything with curl and wrote the commands and expected codes in docs/api-tests.md.
+
