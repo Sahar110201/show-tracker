@@ -80,17 +80,17 @@ curl -i http://localhost:4000/api/comments/not-a-real-id
 
 List Shows (200):
 ```
-curl -i http://localhost:4000/api/shows
+curl -i http://localhost:4000/api/watchlist
 ```
 
 Get one show displaying (200):
 ```
-curl -i http://localhost:4000/api/shows/<ID>
+curl -i http://localhost:4000/api/watchlist/<id>
 ```
 
 Create a watchlist item (201):
 ```
-curl -i -X POST http://localhost:4000/api/shows \ -H "Content-Type: application/json" \ -d '{"tvmazeId": 169, "name": "Example Show"}'
+curl -i -X POST http://localhost:4000/api/watchlist \ -H "Content-Type: application/json" \ -d '{"tvmazeId": 169, "status": "watching", "rating": 5}'
 ```
 
 Update the watchlist (200):
@@ -100,7 +100,7 @@ curl -i -X PUT http://localhost:4000/api/shows/<ID> \ -H "Content-Type: applicat
 
 Delete a show (204):
 ```
-curl -i -X DELETE http://localhost:4000/api/shows/<ID>
+curl -i -X DELETE http://localhost:4000/api/watchlist/<id>
 ```
 
 Validation failure (400):
@@ -110,7 +110,7 @@ curl -i -X POST http://localhost:4000/api/shows \ -H "Content-Type: application/
 
 Unknown id (404):
 ```
-curl -i http://localhost:4000/api/comments/not-a-real-id
+curl -i http://localhost:4000/api/watchlist/<id>
 ```
 
 ### TVmaze
