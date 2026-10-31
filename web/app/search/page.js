@@ -5,20 +5,20 @@ export const metadata = {
   title: 'Search',
 };
 
-// Asks our Express API for the shows that match q. It runs on the server.
-// process.env.API_URL is the API address from the .env.local file (not written in the code).
+// This asks our Express API for the shows that match q. It runs on the server.
+// process.env.API_URL is the API address from the .env.local file.
 // It never calls TVmaze directly. It only talks to our own API.
 async function Results({ q }) {
   const res = await fetch(process.env.API_URL + '/api/shows/search?q=' + encodeURIComponent(q));
 
-  // If our API sends back an error, throw one so an error screen can show it
+  // If our API sends back an error, this code throws so screen can show it
   if (!res.ok) {
     throw new Error('Search failed');
   }
 
   const shows = await res.json();
 
-  // Empty state: a message when nothing matches
+  // This is an empty state, it shows a message when nothing matches
   if (shows.length === 0) {
     return <p>No shows found for {q}.</p>;
   }
@@ -26,7 +26,7 @@ async function Results({ q }) {
   return (
     <ul>
       {shows.map((show) => {
-                // The API sends the premiere date, like 2022-06-23. We show only the first 4 characters, the year.
+                // The API sends the premiere date, like for example 2022-06-23. This only shows the first 4 characters, the year.
                 let year = '';
                 if (show.premiered) {
                   year = ' (' + show.premiered.slice(0, 4) + ')';

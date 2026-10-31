@@ -1,7 +1,6 @@
 import Link from "next/link";
 
-// This is shown for any URL that does not match a page,
-// and whenever a page calls notFound()
+// This is shown for any URL that does not match a page and whenever a page calls notFound()
 export default function NotFound() {
   return (
     <section>

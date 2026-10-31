@@ -14,6 +14,10 @@ Created Issues to be worked on throughout the project
 
 For M2, I set up the API project so it runs on port 4000. I wrote the error handling so that every error reply looks the same. I added the checks for bad data so that the API replies with a 400 that says which part is wrong. I also built the comments part which can show all comments, show one comment, add a comment, change a comment and delete a comment. I tested each one in the browser and with curl. I also wrote the api/README.md, which explains how to run the API and how to test the comments routes.
 
+## M3: Next.js Frontend
+
+I set up the web app and added the rewrite that sends /api requests to the Express API. I also made the layout with the header links. I built the search page and the show detail page and both of these pages get their data from our Express API. I also added the episode list to the API's show details route so that the detail page can show the episodes and their air dates.
+
 ## Misha
 
 ## M1: Proposal Plan
