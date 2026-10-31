@@ -20,6 +20,8 @@ Randy: Used Claude code with debugging /controller/show.js, /routes/shows.js, tv
 
 ## Changes from the wireframes
 
+##Sahar
+
 **Search page:** the results are shown as rows with the poster, rating, title, premiere date, genres, a short description, and a "View details" button, as in the wireframe. The episode count from the wireframe is not shown, because TVmaze's search results do not include the number of episodes.
 
 **Show details page:** the episodes are grouped into collapsible seasons instead of one flat list because long shows have too many episodes for a single list. The rating shown in the page banner is TVmaze's rating out of 10 and the user's own rating out of 5 is set on the watchlist forms. The page also shows the show summary and the genres as tags which are not in the wireframe.
