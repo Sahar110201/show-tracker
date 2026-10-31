@@ -62,8 +62,22 @@ export async function searchShows(q) {
   return results.map((item) => simpleShow(item.show));
 }
 
-// Fetches a single show by id and returns it in simplified form.
+// Fetches a single show by id together with its episodes and returns it in simplified form.
 export async function getShow(id) {
-  const show = await askTvmaze("/shows/" + id);
-  return simpleShow(show);
+  // ?embed=episodes makes TVmaze send the episode list inside the same reply
+  const show = await askTvmaze("/shows/" + id + "?embed=episodes");
+
+  const data = simpleShow(show);
+
+  // Keep only the few episode fields the app needs
+  const episodes = show._embedded ? show._embedded.episodes : [];
+  data.episodes = episodes.map((episode) => ({
+    id: episode.id,
+    season: episode.season,
+    number: episode.number,
+    name: episode.name,
+    airdate: episode.airdate,
+  }));
+
+  return data;
 }

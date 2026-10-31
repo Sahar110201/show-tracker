@@ -36,7 +36,7 @@ async function Episodes({ id }) {
         }
 
         return (
-          <li key={episode.season + '-' + episode.number}>
+          <li key={episode.id}>
             Season {episode.season}, episode {episode.number}: {episode.name}
             {airdate}
           </li>

@@ -31,7 +31,7 @@ The server runs on http://localhost:4000.
 | PUT | /api/watchlist/:id | This will update our watchlist |
 | DELETE | /api/watchlist/:id | This will delete a watchlist item |
 | GET | /api/shows/search | search through TVMaze |
-| GET | /api/shows/:id | Returns a show by its ID |
+| GET | /api/shows/:id | Returns a show by its ID with its episodes (id, season, number, name, airedate) |
 
 Change from M1: comments now have all five routes (M1 only listed add and get).
 
@@ -135,6 +135,8 @@ The server runs on port 4000. On Windows PowerShell use `curl.exe`. On Mac or Li
 | 4 | Real show id | `curl.exe -i "http://localhost:4000/api/shows/139"` | 200 |
 | 5 | Unknown show id | `curl.exe -i "http://localhost:4000/api/shows/99999999"` | 404 |
 | 6 | Id is not a number | `curl.exe -i "http://localhost:4000/api/shows/abc"` | 404 |
+
+The 200 response for a real id also includes an `episodes` list. Each episode has an `id`, `season`, `number`, `name` and `airdate`.
 
 ## Cache test
 
