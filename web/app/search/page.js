@@ -26,15 +26,39 @@ async function Results({ q }) {
     return (
       <ul className="results">
         {shows.map((show) => {
-          // The API sends the premiere date, like 2022-06-23. We show only the year.
-          let year = '';
+          // Not every show has a rating, a date or genres, so each one has a fallback
+                  // TVmaze rates out of 10. We fill the 5 stars to match, so 7.4 fills about 3.7 stars.
+        let rating = <span className="rating-none">No rating</span>;
+        if (show.rating) {
+          const fill = Math.round((show.rating / 10) * 100);
+          rating = (
+            <span className="stars-row" role="img" aria-label={'Rating ' + show.rating + ' out of 10'}>
+              <span className="stars" style={{ '--fill': fill + '%' }} aria-hidden="true">
+                ★★★★★
+              </span>
+              <span className="rating-number">{show.rating}</span>
+            </span>
+          );
+        }
+  
+          let date = 'Date unknown';
           if (show.premiered) {
-            year = show.premiered.slice(0, 4);
+            date = show.premiered;
           }
   
-          let genres = '';
+          let genres = 'No genres listed';
           if (show.genres && show.genres.length > 0) {
             genres = show.genres.join(', ');
+          }
+  
+          // A short description: the first 180 characters of the summary
+          let description = null;
+          if (show.summary) {
+            let text = show.summary;
+            if (text.length > 180) {
+              text = text.slice(0, 180).trimEnd() + '...';
+            }
+            description = <p className="result-description">{text}</p>;
           }
   
           // Not every show has a poster
@@ -43,20 +67,20 @@ async function Results({ q }) {
             poster = <img src={show.image} alt={'Poster for ' + show.name} />;
           }
   
-          let meta = year;
-          if (year && genres) {
-            meta = year + ' · ' + genres;
-          } else if (genres) {
-            meta = genres;
-          }
-  
           return (
-            // key tells React which card is which when the list changes
-            <li key={show.id}>
-              <Link href={'/shows/' + show.id} className="result-card">
-                {poster}
-                <span className="result-name">{show.name}</span>
-                <span className="result-meta">{meta}</span>
+            // key tells React which row is which when the list changes
+            <li key={show.id} className="result-row">
+              {poster}
+              <div className="result-body">
+                <h2 className="result-name">{show.name}</h2>
+                {rating}
+                <p className="result-meta">
+                  Premiered {date} · {genres}
+                </p>
+                {description}
+              </div>
+              <Link href={'/shows/' + show.id} className="view-button">
+                View details
               </Link>
             </li>
           );

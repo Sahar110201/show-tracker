@@ -139,63 +139,132 @@ form[action='/search'] input {
   max-width: 440px;
 }
 
-/* Search results: a grid of poster cards */
+ /* Search results: one rectangular row per show, like the wireframe */
 .results {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 
-.results li {
-  margin: 0;
-}
-
-.result-card {
+.result-row {
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 10px;
-  overflow: hidden;
-  color: var(--text);
-  text-decoration: none;
 }
 
-.result-card:hover {
+.result-row:hover {
   border-color: var(--accent);
 }
 
-.result-card img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 2 / 3;
+.result-row img {
+  flex-shrink: 0;
+  width: 100px;
+  height: 150px;
   object-fit: cover;
+  border-radius: 6px;
 }
 
 .no-poster {
-  aspect-ratio: 2 / 3;
+  flex-shrink: 0;
+  width: 100px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--accent-soft);
   color: var(--muted);
-}
-
-.result-name {
-  padding: 0.6rem 0.75rem 0;
-  font-weight: 600;
-}
-
-.result-meta {
-  padding: 0.1rem 0.75rem 0.7rem;
-  color: var(--muted);
+  border-radius: 6px;
   font-size: 0.85rem;
 }
 
+.result-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.stars-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.3rem;
+}
+
+/* Five stars, filled gold up to --fill and grey after that */
+.stars {
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+  line-height: 1;
+  background: linear-gradient(90deg, var(--gold) var(--fill), #d3d8df var(--fill));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.rating-number {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.rating-none {
+  display: block;
+  margin: 0 0 0.3rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.result-name {
+  margin: 0 0 0.2rem;
+  font-size: 1.2rem;
+}
+
+.result-meta {
+  margin: 0 0 0.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.result-description {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+.view-button {
+  flex-shrink: 0;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.view-button:hover {
+  opacity: 0.9;
+}
+
+/* On a narrow screen, put the button under the text */
+@media (max-width: 640px) {
+  .result-row {
+    flex-wrap: wrap;
+  }
+
+  .view-button {
+    width: 100%;
+    text-align: center;
+  }
+}
 /* Detail page banner: the poster is blurred into the background, with the sharp poster on top */
 .hero {
   position: relative;
