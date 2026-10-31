@@ -123,6 +123,11 @@ export default async function ShowPage({ params }) {
       premiered = <span className="pill">Premiered {show.premiered}</span>;
     }
   
+    let episodeCount = null;
+    if (show.episodes && show.episodes.length > 0) {
+      episodeCount = <span className="pill">{show.episodes.length} episodes</span>;
+    }
+
     let summary = null;
     if (show.summary) {
       summary = <p className="summary">{show.summary}</p>;
@@ -147,6 +152,7 @@ export default async function ShowPage({ params }) {
               {rating}
               {status}
               {premiered}
+              {episodeCount}
             </p>
             {genres}
             {summary}
