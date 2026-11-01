@@ -20,7 +20,7 @@ Randy: Used Claude code with debugging /controller/show.js, /routes/shows.js, tv
 
 ## Changes from the wireframes
 
-##Sahar
+Sahar
 
 **Search page:** the results are shown as rows with the poster, rating, title, premiere date, genres, a short description, and a "View details" button, as in the wireframe. The episode count from the wireframe is not shown, because TVmaze's search results do not include the number of episodes.
 
