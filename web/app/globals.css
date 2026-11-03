@@ -421,3 +421,94 @@ details td:last-child {
   text-align: right;
   color: var(--muted);
 }
+
+/* The green bar with messages like "Comment added" */
+.flash {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.25rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid #a7d8b4;
+  border-radius: 10px;
+  background: #e9f7ee;
+  color: #1c5132;
+  font-weight: 600;
+}
+
+.flash-close {
+  margin-left: auto;
+  padding: 0.2rem 0.7rem;
+  border-color: #1c5132;
+  background: transparent;
+  color: #1c5132;
+  font-size: 0.8rem;
+}
+
+/* Comments: one white card per comment */
+.comments {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.comment {
+  padding: 0.9rem 1rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.comment-text {
+  margin: 0 0 0.5rem;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.comment-actions button {
+  padding: 0.25rem 0.8rem;
+  border-color: var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.comment-actions button:hover {
+  border-color: #c23b3b;
+  color: #c23b3b;
+}
+
+/* The add and edit comment forms */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  max-width: 560px;
+}
+
+.comment-form label {
+  font-weight: 600;
+}
+
+.comment-form textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+/* The red message that sits next to a form box when the API sends a 400 */
+.field-error {
+  margin: 0;
+  color: #c23b3b;
+  font-size: 0.9rem;
+}

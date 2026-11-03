@@ -40,3 +40,7 @@ Brainstormed on the API Deisgn and TVmaze
 
 Researched on Error Handling
 
+## M3: Next.js Frontend
+
+For M3, I built the comments part of the frontend. I put all of it in its own component, web/app/components/CommentsSection.js, so the show detail page only needed one line added to it. The section lists the comments for that show, has a form to add one, and a delete button on each comment. I also made an all comments page at /comments and an edit page at /comments/[id]/edit, which sends you back to the show page after you save so you can see the change. Both forms turn the submit button off while they are sending, and when the API answers with a 400 the message is printed right under the text box. I added a React Context in web/app/components/MessageContext.js with a green bar in the layout, so a message like "Comment added" is still on screen after you move to another page.
+
