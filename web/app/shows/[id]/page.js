@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+import CommentsSection from '../../components/CommentsSection';
 
 // Asks our Express API for one show. It runs on the server.
 // It returns null when our API says the show does not exist.
@@ -165,7 +166,9 @@ export default async function ShowPage({ params }) {
           <Episodes id={id} />
         </Suspense>
   
-        {/* The comments section goes here (Person 2's part) */}
+        {/* The comments section. All of its code lives in CommentsSection.js. */}
+        <h2>Comments</h2>
+        <CommentsSection tvmazeId={Number(id)} />
       </article>
     );
   }
