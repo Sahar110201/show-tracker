@@ -31,3 +31,11 @@ Sahar
 Misha
 
 **Dashboard Page:** Currently the Watchlist Page displays the Status of the movie, TVMazeID and its rating, We also have a Edit feature where a user can edit their Watchlist as they are going along through their movie or a show.
+
+## Individual Walkthroughs as The Dropbox was missing
+
+Sahar - https://www.youtube.com/watch?v=aZtaCch7hKc
+
+Misha - https://www.youtube.com/watch?v=B_P9sjuPF2g
+
+Randy - https://www.youtube.com/watch?v=6onu_Y46Rj0
