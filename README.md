@@ -14,7 +14,7 @@ Randy (randyrampersaud1337)
 
 Sahar: I used Claude to help correct my code and debug the code for M2 and M3. Whenever I got stuck somewhere or I kept getting erorrs, I copy pasted my code into claude to ask for its help and see where I went wrong. 
 
-Misha: I had to use Claude to debug my watchlistlogic.js when I would get errors and explain what some of the errors would mean in order to fix the problem 
+Misha: I had to use Claude to debug my watchlistlogic.js when I would get errors and explain what some of the errors would mean in order to fix the problem. For M3, I used it to help me debug the wactchlist/page.js
 
 Randy: Used Claude code with debugging /controller/show.js, /routes/shows.js, tvmaze.js, server,js  and implementing TVmaze API and used it help me with the file structure
 
