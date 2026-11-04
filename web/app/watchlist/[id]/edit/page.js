@@ -7,7 +7,7 @@ export default function EditPage() {
   const router = useRouter();
   const params = useParams();
 
-  // Get the watchlist item ID from the URL
+  // Get the watchlist item ID from the URL, Tvmaze ID, status, and rating from the form state
   const watchlistId = params.id;
   const [tvmazeId, setTvmazeId] = useState("");
   const [status, setStatus] = useState("plan_to_watch");
@@ -19,6 +19,7 @@ export default function EditPage() {
 
     setSaving(true);
 
+    // This will send a updated item to the API to update the watchlist item with the new values
     try {
       const response = await fetch(
         "/api/watchlist/" + watchlistId,
@@ -39,6 +40,7 @@ export default function EditPage() {
         throw new Error("Update failed");
       }
 
+      // This will push the user back to watchlist page after his changes have been saved
       router.push("/watchlist");
     } catch (error) {
       console.error(error);
@@ -60,8 +62,7 @@ export default function EditPage() {
             <input
               type="number"
               value={tvmazeId}
-              onChange={(e) => setTvmazeId(e.target.value)
-              }
+              onChange={(e) => setTvmazeId(e.target.value) }
             />
           </label>
         </p>
@@ -71,9 +72,7 @@ export default function EditPage() {
             Status
             <br />
             <select
-              value={status} onChange={(e) =>
-                setStatus(e.target.value)
-              }
+              value={status} onChange={(e) => setStatus(e.target.value) }
             >
               <option value="plan_to_watch">
                 Plan to watch
@@ -103,9 +102,7 @@ export default function EditPage() {
               min="1"
               max="5"
               value={rating}
-              onChange={(e) =>
-                setRating(e.target.value)
-              }
+              onChange={(e) => setRating(e.target.value) }
             />
           </label>
         </p>
