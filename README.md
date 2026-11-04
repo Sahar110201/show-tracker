@@ -27,3 +27,7 @@ Sahar
 **Show details page:** the episodes are grouped into collapsible seasons instead of one flat list because long shows have too many episodes for a single list. The rating shown in the page banner is TVmaze's rating out of 10 and the user's own rating out of 5 is set on the watchlist forms. The page also shows the show summary and the genres as tags which are not in the wireframe.
 
 **Profile page:** the Profile page from the wireframes is not built in M3.
+
+Misha
+
+**Dashboard Page:** Currently the Watchlist Page displays the Status of the movie, TVMazeID and its rating, We also have a Edit feature where a user can edit their Watchlist as they are going along through their movie or a show.
