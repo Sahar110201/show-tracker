@@ -83,7 +83,7 @@ export default async function WatchlistPage() {
 
             <br />
 
-            Status: {item.status}
+            Status: {item.status.replaceAll("_", " ")}
 
             <br />
 

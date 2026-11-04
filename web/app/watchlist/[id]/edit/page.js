@@ -1,18 +1,65 @@
-export const metadata = {
-  title: "Edit Watchlist Item",
-};
+"use client";
+import { useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 
+// Form for editing an existing watchlist item
 export default function EditPage() {
+  const router = useRouter();
+  const params = useParams();
+
+  // Get the watchlist ID to edit the changes for themovie
+  const watchlistId = params.id;
+  const [status, setStatus] = useState("plan_to_watch");
+  const [rating, setRating] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    setSaving(true);
+
+    try {
+      const response = await fetch( "/api/watchlist/" + watchlistId,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            tvmazeId: 169,
+            status,
+            rating: Number(rating),
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Update failed");
+      }
+
+      // Return to watchlist page after saving the changes 
+      router.push("/watchlist");
+    } catch (error) {
+      console.error(error);
+      alert("Could not update watchlist item.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <>
       <h1>Edit Watchlist Item</h1>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <p>
           <label>
             Status
             <br />
-            <select name="status">
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
               <option value="plan_to_watch">
                 Plan to watch
               </option>
@@ -36,14 +83,22 @@ export default function EditPage() {
           <label>
             Rating
             <br />
-            <input type="number"
+            <input
+              type="number"
               min="1"
               max="5"
-              name="rating"/>
+              value={rating}
+              onChange={(e) => setRating(e.target.value)}
+            />
           </label>
         </p>
 
-        <button type="submit"> Save </button>
+        <button
+          type="submit"
+          disabled={saving}
+        >
+          {saving ? "Saving..." : "Save"}
+        </button>
       </form>
     </>
   );

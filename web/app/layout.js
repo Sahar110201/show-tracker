@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           <header>
             <nav>
               <Link href="/">Show Tracker</Link>
-              <Link href="/">Watchlist</Link>
+              <Link href="/watchlist">Watchlist</Link>
               <Link href="/search">Search</Link>
               <Link href="/comments">Comments</Link>
               <Link href="/add">Add show</Link>
