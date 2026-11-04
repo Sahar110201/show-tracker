@@ -32,6 +32,10 @@ Brainstormed on the Databse Design of the Project for MongoDB
 
 For M2, I was responsible in creating a watchlist feature. I created both watchlist.js router and watchlistlogic.js controller that is responsible in listing items, searching one item, adding new items, updating them and removing them. I also added validation so API returns 400 message if we receive wrong information. 
 
+## M3: Next.js Frontend
+
+For M3, I worked on the Watchlist portion of the frontend. I created a Watchlist Page where a user can add the show or a movie they would like to watch. I also created an edit section where a user can edit their current list if they had made a mistake somewhere and it allows them to change rating, status or the name using TVMazeID. Additionally I added loading.js and error.js so a person can see a loading state when the data is being fetched and giving an error message of API is not working. 
+
 ## Randy
 
 ## M1: Proposal Plan
