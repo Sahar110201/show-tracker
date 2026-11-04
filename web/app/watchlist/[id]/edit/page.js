@@ -7,8 +7,9 @@ export default function EditPage() {
   const router = useRouter();
   const params = useParams();
 
-  // Get the watchlist ID to edit the changes for themovie
+  // Get the watchlist item ID from the URL
   const watchlistId = params.id;
+  const [tvmazeId, setTvmazeId] = useState("");
   const [status, setStatus] = useState("plan_to_watch");
   const [rating, setRating] = useState("");
   const [saving, setSaving] = useState(false);
@@ -19,14 +20,15 @@ export default function EditPage() {
     setSaving(true);
 
     try {
-      const response = await fetch( "/api/watchlist/" + watchlistId,
+      const response = await fetch(
+        "/api/watchlist/" + watchlistId,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            tvmazeId: 169,
+            tvmazeId: Number(tvmazeId),
             status,
             rating: Number(rating),
           }),
@@ -37,7 +39,6 @@ export default function EditPage() {
         throw new Error("Update failed");
       }
 
-      // Return to watchlist page after saving the changes 
       router.push("/watchlist");
     } catch (error) {
       console.error(error);
@@ -54,11 +55,25 @@ export default function EditPage() {
       <form onSubmit={handleSubmit}>
         <p>
           <label>
+            TVMaze ID
+            <br />
+            <input
+              type="number"
+              value={tvmazeId}
+              onChange={(e) => setTvmazeId(e.target.value)
+              }
+            />
+          </label>
+        </p>
+
+        <p>
+          <label>
             Status
             <br />
             <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              value={status} onChange={(e) =>
+                setStatus(e.target.value)
+              }
             >
               <option value="plan_to_watch">
                 Plan to watch
@@ -88,16 +103,14 @@ export default function EditPage() {
               min="1"
               max="5"
               value={rating}
-              onChange={(e) => setRating(e.target.value)}
+              onChange={(e) =>
+                setRating(e.target.value)
+              }
             />
           </label>
         </p>
 
-        <button
-          type="submit"
-          disabled={saving}
-        >
-          {saving ? "Saving..." : "Save"}
+        <button type="submit" disabled={saving} > {saving ? "Saving..." : "Save"}
         </button>
       </form>
     </>
