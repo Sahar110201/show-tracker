@@ -42,4 +42,4 @@ Randy - https://www.youtube.com/watch?v=6onu_Y46Rj0
 
 ## M2 and M3 Demo Video
 
-https://youtu.be/Pt2B8-OWt8U
+https://www.youtube.com/watch?v=oMgRrIuu0_I
