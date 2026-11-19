@@ -5,6 +5,7 @@ import { notFound, errorHandler } from "./middleware/errorHandlers.js";
 import commentsRouter from "./routes/comments.js";
 import showsRouter from "./routes/shows.js";
 import watchlistRouter from "./routes/watchlist.js";
+import { connectDb } from "./db.js";
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,9 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT ?? 4000;
+
+// Connect to MongoDB before accepting requests.
+await connectDb();
 
 app.listen(PORT, () => {
   console.log(`Show Tracker API running at http://localhost:${PORT}`);

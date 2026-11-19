@@ -1,26 +1,69 @@
+import mongoose from "mongoose";
 import { HttpError } from "../errors.js";
 
-// This handles the requests to routes that do not exist
+// This handles requests to routes that do not exist.
 export function notFound(req, res, next) {
-    // This sends a 404 error with the requested routes
   next(new HttpError(404, `Route not found: ${req.method} ${req.originalUrl}`));
 }
 
-// This handles error in the app
+// This handles errors in the app.
 export function errorHandler(err, req, res, next) {
-    // This uses the error status or default to 500
-  const status = err.status || 500;
+  // If a response has already started, pass the error on.
+  if (res.headersSent) return next(err);
 
-  // This log server errors to the console
+  // The request body was not valid JSON.
+  if (err.type === "entity.parse.failed") {
+    return res.status(400).json({
+      error: { message: "Request body must be valid JSON", details: null },
+    });
+  }
+
+  // The schema rejected the data. err.errors has one entry per field
+  // that broke a validation rule.
+  if (err instanceof mongoose.Error.ValidationError) {
+    const details = {};
+
+    for (const field in err.errors) {
+      details[field] = err.errors[field].message;
+    }
+
+    return res.status(400).json({
+      error: {
+        message: "Validation failed",
+        details: details,
+      },
+    });
+  }
+
+  // The supplied value could not be converted to the expected type.
+  if (err instanceof mongoose.Error.CastError) {
+    return res.status(400).json({
+      error: {
+        message: "Invalid value",
+        details: {
+          [err.path]: err.message,
+        },
+      },
+    });
+  }
+
+  // A unique index was broken for example the same entry added twice.
+  if (err.code === 11000) {
+    return res.status(409).json({
+      error: { message: "That entry already exists", details: null },
+    });
+  }
+
+  // This uses the error status or defaults to 500.
+  const status = err.status ?? 500;
+
+  // Log server errors to the console.
   if (status >= 500) console.error(err);
 
-  // This sends the error response as JSON
+  // Send the error response as JSON.
   res.status(status).json({
     error: {
-        // This hides the internal error message for the server errors
       message: status >= 500 ? "Internal server error" : err.message,
-
-      // This includes the extra details or null if non of it exist
       details: err.details ?? null,
     },
   });

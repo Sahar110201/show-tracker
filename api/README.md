@@ -157,3 +157,39 @@ Use a search word you have not used yet, because used words come from the cache.
 |---|---|---|---|---|
 | 7 | TVmaze too slow | `TIMEOUT_MS = 1` | `curl.exe -i "http://localhost:4000/api/shows/search?q=office"` | 504 |
 | 8 | TVmaze broken | `TVMAZE = "https://api.tvmaze.com.fake"` | `curl.exe -i "http://localhost:4000/api/shows/search?q=friends"` | 502 |
+
+## Database setup (MongoDB)
+
+The API stores its data in MongoDB with Mongoose.
+
+1. Create a free MongoDB Atlas cluster, a database user, and add your current IP address to the Network Access list.
+2. Copy `api/.env.example` to `api/.env`.
+3. Put your own connection string in `MONGODB_URI`. Include a database name after `.mongodb.net/`, for example `show_tracker`. Never commit `.env`.
+4. Run `npm install`, then `npm run dev`. The API prints `Connected to MongoDB` before it starts listening. If `MONGODB_URI` is missing, it stops with a clear message.
+
+| Variable | Description |
+|---|---|
+| PORT | Port the server listens on (default 4000) |
+| MONGODB_URI | Your MongoDB connection string |
+
+## Seed data
+
+```
+cd api
+npm run seed
+```
+
+This deletes and re-creates the sample data for every model, with 28 watchlist items and a few comments. Run it again any time to reset the data. It is a script, not a route, so nobody can reset the data through the API.
+
+## Watchlist list endpoint: query parameters
+
+`GET /api/watchlist` accepts these query parameters:
+
+| Parameter | Default | Rules |
+|---|---|---|
+| status | all | One of `plan_to_watch`, `watching`, `finished`, `dropped` |
+| sort | createdAt | `rating`, `episodesWatched` or `createdAt`, with `-` in front to reverse the order. Any other field gets a 400 |
+| page | 1 | A whole number, 1 or more |
+| limit | 10 | A whole number from 1 to 50 |
+
+The response is `{ data, page, limit, total, totalPages }`. A bad parameter gets a 400 with details for each one.
