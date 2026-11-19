@@ -18,6 +18,10 @@ For M2, I set up the API project so it runs on port 4000. I wrote the error hand
 
 I set up the web app and added the rewrite that sends /api requests to the Express API. I also made the layout with the header links. I built the search page and the show detail page and both of these pages get their data from our Express API. I also added the episode list to the API's show details route so that the detail page can show the episodes and their air dates.
 
+# M4: MongoDB persistence
+
+For M4 I connected the API to MongoDB with Mongoose. I wrote `db.js` which turns on `sanitizeFilter`and stops with a clear message if `MONGODB_URI` is missing and connects before the server even starts listening. I also added `MONGODB_URI` with a fake value to `.env.example`. I also updated the error handler so Mongoose validation errors and bad values give a 400 with field details and I also wrote a `findById` helper so a badly formed id or a missing document can give a 404. I also made the shared `toJSON` options that rename `_id` to `id` so the frontend keeps working, and I updated `formErrors.js` so the forms show the field errors from the API. I also wrote the seed script and Readme. 
+
 ## Misha
 
 ## M1: Proposal Plan
