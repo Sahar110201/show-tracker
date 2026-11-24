@@ -16,7 +16,7 @@ Sahar: I used Claude to help correct my code and debug the code for M2 and M3. W
 
 Misha: I had to use Claude to debug my watchlistlogic.js when I would get errors and explain what some of the errors would mean in order to fix the problem. For M3, I used it to help me debug the wactchlist/page.js
 
-Randy: Used Claude code with debugging /controller/show.js, /routes/shows.js, tvmaze.js, server,js  and implementing TVmaze API and used it help me with the file structure
+Randy: Used Claude code with debugging /controller/show.js, /routes/shows.js, tvmaze.js, server,js  and implementing TVmaze API and used it help me with the file structure. For M4 I used Claude to explain how Mongoose populate() and the ref field work, because I was not sure why my watchlistItem field kept coming back as just an id. I also asked it why my comment validation messages were not reaching the form, and it pointed out that I had left the old zod check in the controller so the model rules were never being run. When I was building the filter and sort controls on the watchlist page I asked it how searchParams works in Next.js 16, since it is a promise now and has to be awaited, and I used it to check my understanding of why a plain form was a better fit there than a client component.
 
 ## Changes from the wireframes
 
