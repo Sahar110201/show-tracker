@@ -1,97 +1,134 @@
 import { HttpError } from "../errors.js";
+import { WatchlistItem } from "../models/WatchlistItem.js";
+import { findByIdOr404 } from "../utils/findById.js";
 
-// Watchlist data 
-const watchlist = [
-  { id: crypto.randomUUID(), tvmazeId: 169, status: "watching", rating: 5 },
-  { id: crypto.randomUUID(), tvmazeId: 82, status: "finished", rating: 4 },
-  { id: crypto.randomUUID(), tvmazeId: 200, status: "plan_to_watch", rating: 3 },
-];
 
-// a function to find a show by ID
-function findIndexById(id) {
-  let index = -1;
+export async function listWatchlist(req, res) {
 
-  for (let i = 0; i < watchlist.length; i++) {
-    if (watchlist[i].id === id) {
-      index = i;
+
+  const filter = {};
+
+  if (req.query.status) {
+    filter.status = req.query.status;
+  }
+
+
+  const allowedSorts = ["name", "status", "rating", "episodesWatched"];
+
+  let sort = "name";
+
+  if (req.query.sort) {
+
+    if (!allowedSorts.includes(req.query.sort)) {
+      throw new HttpError(400, "Sort field is not valid");
     }
+
+    sort = req.query.sort;
   }
 
-  if (index === -1) {
-    throw new HttpError(404, "Show not found");
+  let page = Number(req.query.page);
+
+  if (!page) {
+    page = 1;
   }
 
-  return index;
+  let limit = Number(req.query.limit);
+
+  if (!limit) {
+    limit = 10;
+  }
+
+  if (limit > 20) {
+    limit = 20;
+  }
+
+  if (page < 1) {
+    throw new HttpError(400, "Page must be at least 1");
+  }
+
+  if (limit < 1) {
+    throw new HttpError(400, "Limit must be at least 1");
+  }
+
+
+
+  const skip = (page - 1) * limit;
+  const items = await WatchlistItem.find(filter)
+    .sort(sort)
+    .skip(skip)
+    .limit(limit);
+
+
+  const total = await WatchlistItem.countDocuments(filter);
+  const pages = Math.ceil(total / limit);
+
+
+  res.status(200).json({ items: items, total: total, pages: pages });
 }
 
-// Validation
-function validateWatchlistData(data) {
-  
-  if (typeof data.tvmazeId !== "number" || data.tvmazeId <= 0) {
-    throw new HttpError(400, "tvmazeId must be a positive number");
-  }
 
-  // Check status and the ratings
-  const allowedStatuses = ["plan_to_watch", "watching", "finished", "dropped"];
-  if (!allowedStatuses.includes(data.status)) {
-    throw new HttpError(400, "status is not valid");
-  }
+export async function getWatchlistItem(req, res) {
 
-
-  if (typeof data.rating !== "number" || data.rating < 1 || data.rating > 5) {
-    throw new HttpError(400, "rating must be between 1 and 5");
-  }
+  const item = await findByIdOr404( WatchlistItem, req.params.id );
+  res.status(200).json(item);
 }
 
-// This function will show all items
-export function listWatchlist(req, res) {
-  res.status(200).json(watchlist);
-}
 
-// This function will show one item
-export function getWatchlistItem(req, res) {
-  const index = findIndexById(req.params.id);
-  res.status(200).json(watchlist[index]);
-}
-
-// This function will add a new item
-export function addWatchlistItem(req, res) {
+export async function addWatchlistItem(req, res) {
   const data = req.body;
 
-  validateWatchlistData(data);
-
-  const newItem = {
-    id: crypto.randomUUID(),
+  const newItem = await WatchlistItem.create({
     tvmazeId: data.tvmazeId,
+    name: data.name,
     status: data.status,
-    rating: data.rating,
-  };
-
-  watchlist.push(newItem);
+    episodesWatched: data.episodesWatched,
+    rating: data.rating
+  });
   res.status(201).json(newItem);
 }
 
-// This function will update an item
-export function updateWatchlistItem(req, res) {
-  const index = findIndexById(req.params.id);
+
+
+export async function updateWatchlistItem(req, res) {
+
   const data = req.body;
+  const updatedItem = await WatchlistItem.findByIdAndUpdate(
+    req.params.id,
+    {
+      tvmazeId: data.tvmazeId,
+      name: data.name,
+      status: data.status,
+      episodesWatched: data.episodesWatched,
+      rating: data.rating
+    },
 
-  validateWatchlistData(data);
+    {
+      returnDocument: "after",
+      runValidators: true
+    }
+  );
 
-  const updatedItem = {
-    id: watchlist[index].id,
-    tvmazeId: data.tvmazeId,
-    status: data.status,
-    rating: data.rating,
-  };
 
-  watchlist[index] = updatedItem;
+
+  if (!updatedItem) { 
+    throw new HttpError(404, "Watchlist item not found");
+  }
+
   res.status(200).json(updatedItem);
 }
 
-// This function will delete an item
-export function deleteWatchlistItem(req, res) {
-  const index = findIndexById(req.params.id);
-  watchlist.splice(index, 1);
+
+export async function deleteWatchlistItem(req, res) {
+
+
+  const deletedItem = await WatchlistItem.findByIdAndDelete(
+    req.params.id
+  );
+
+  if (!deletedItem) {
+    throw new HttpError(404, "WatchlistItem not found");
+  }
+
+
   res.status(204).send();
 }

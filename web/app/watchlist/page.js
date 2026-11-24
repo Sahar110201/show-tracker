@@ -14,7 +14,8 @@ async function getWatchlist() {
     throw new Error("Could not load watchlist");
   }
 
-  const items = await res.json();
+  const data = await res.json();
+  const items = data.items;
 
   // For each item in the watchlist, it will show the name of the show and its details.
   const itemsWithShows = await Promise.all(
