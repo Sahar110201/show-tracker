@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 import { toJSONOptions } from "./to-json.js";
 
+// Current statuses for watchlist items
 const allowedStatuses = [ "plan_to_watch", "watching", "finished", "dropped",];
+// Mongoose schema for a watchlist item
 const watchlistItemSchema = new mongoose.Schema(
   {
     tvmazeId: {
@@ -54,6 +56,6 @@ const watchlistItemSchema = new mongoose.Schema(
 );
 
 export const WatchlistItem = mongoose.model(
-  "WatchlistItem",
+"WatchlistItem",
   watchlistItemSchema
 );
