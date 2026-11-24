@@ -12,10 +12,10 @@ import {
 // This creates a router for comment routes
 const router = Router();
 
-// This gets all the comments
+// This gets all the comments. ?tvmazeId= or ?watchlistItem= narrows the list down.
 router.get("/", listComments);
 
-// This gets 1 comment by ID
+// This gets 1 comment by ID, with the watchlist item it belongs to included
 router.get("/:id", getComment);
 
 // This creates a new comment

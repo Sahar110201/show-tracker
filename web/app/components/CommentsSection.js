@@ -32,16 +32,14 @@ export default function CommentsSection({ tvmazeId }) {
   useEffect(() => {
     async function loadComments() {
       try {
-        const res = await fetch('/api/comments');
+        // The API does the filtering now, so only this show's comments come back
+        const res = await fetch('/api/comments?tvmazeId=' + tvmazeId);
 
         if (!res.ok) {
           throw new Error('Could not load the comments');
         }
 
-        const all = await res.json();
-
-        // Our API sends every comment, so keep only the ones for this show
-        setComments(all.filter((comment) => comment.tvmazeId === tvmazeId));
+        setComments(await res.json());
       } catch {
         setLoadError('The comments could not be loaded. Is the API running?');
       }

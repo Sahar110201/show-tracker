@@ -506,6 +506,56 @@ details td:last-child {
   resize: vertical;
 }
 
+/* The filter and sort bar above the watchlist */
+.list-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+  margin: 1rem 0 1.25rem;
+  padding: 0.9rem 1rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.list-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* The Previous and Next buttons under the list */
+.pagination {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.pagination a,
+.page-link-off {
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  border-color: var(--accent);
+}
+
+/* Previous on the first page, or Next on the last one: nowhere to go */
+.page-link-off {
+  color: var(--muted);
+  opacity: 0.55;
+}
+
 /* The red message that sits next to a form box when the API sends a 400 */
 .field-error {
   margin: 0;

@@ -115,6 +115,20 @@ export default function EditCommentPage() {
     );
   }
 
+  // The API sends the linked watchlist item with the comment, in the same request,
+  // so there is nothing extra to load here. It is empty when the show has not
+  // been added to the watchlist.
+  let linkedItem = <p className="subtitle">This show is not on your watchlist yet.</p>;
+  if (comment.watchlistItem) {
+    linkedItem = (
+      <p className="subtitle">
+        On your watchlist as <strong>{comment.watchlistItem.name}</strong> ·{' '}
+        {comment.watchlistItem.status.replaceAll('_', ' ')} ·{' '}
+        {comment.watchlistItem.episodesWatched} episodes watched
+      </p>
+    );
+  }
+
   return (
     <>
       <p>
@@ -124,6 +138,8 @@ export default function EditCommentPage() {
       </p>
 
       <h1>Edit comment</h1>
+
+      {linkedItem}
 
       <form onSubmit={handleSave} className="comment-form">
         <label htmlFor="text">Comment</label>
