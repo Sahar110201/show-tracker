@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 
 // Form for editing an existing watchlist item
@@ -7,10 +7,11 @@ export default function EditPage() {
   const router = useRouter();
   const params = useParams();
 
-  // Get the watchlist item ID from the URL, Tvmaze ID, status, and rating from the form state
+  // Get the watchlist item ID from the URL, Tvmaze ID, status, episodes watched, and rating from the form state
   const watchlistId = params.id;
   const [tvmazeId, setTvmazeId] = useState("");
   const [status, setStatus] = useState("plan_to_watch");
+  const [episodesWatched, setEpisodesWatched] = useState("");
   const [rating, setRating] = useState("");
   const [saving, setSaving] = useState(false);
 
@@ -21,6 +22,16 @@ export default function EditPage() {
 
     // This will send a updated item to the API to update the watchlist item with the new values
     try {
+      const showResponse = await fetch(
+        "/api/shows/" + tvmazeId
+      );
+
+      if (!showResponse.ok) {
+        throw new Error("Show could not be found");
+      }
+
+      const show = await showResponse.json();
+
       const response = await fetch(
         "/api/watchlist/" + watchlistId,
         {
@@ -30,7 +41,9 @@ export default function EditPage() {
           },
           body: JSON.stringify({
             tvmazeId: Number(tvmazeId),
+            name: show.name,
             status,
+            episodesWatched: Number(episodesWatched),
             rating: Number(rating),
           }),
         }
@@ -42,6 +55,7 @@ export default function EditPage() {
 
       // This will push the user back to watchlist page after his changes have been saved
       router.push("/watchlist");
+      router.refresh();
     } catch (error) {
       console.error(error);
       alert("Could not update watchlist item.");
@@ -90,6 +104,19 @@ export default function EditPage() {
                 Dropped
               </option>
             </select>
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Episodes Watched
+            <br />
+            <input
+              type="number"
+              min="0"
+              value={episodesWatched}
+              onChange={(e) => setEpisodesWatched(e.target.value) }
+            />
           </label>
         </p>
 

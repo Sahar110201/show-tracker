@@ -88,6 +88,10 @@ export default async function WatchlistPage() {
 
             <br />
 
+            Episodes Watched: {item.episodesWatched}
+
+            <br />
+
             Rating: {item.rating}
 
             <br />
