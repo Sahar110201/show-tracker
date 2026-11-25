@@ -184,7 +184,24 @@ Unknown watchlist item on create (404):
 curl -i -X POST http://localhost:4000/api/comments -H "Content-Type: application/json" -d '{"tvmazeId": 169, "text": "hi", "watchlistItem": "000000000000000000000000"}'
 ```
 
-### Watchlist
+## Watchlist
+
+Run `npm run seed` first so there are watchlist items to work with, then start the
+server and run these in a second terminal
+
+Replace `<id>` with an id from the list request
+
+The watchlist model
+A watchlist item is stored in the `watchlistitems` collection with these fields
+
+| Field | Type | Rules |
+|---|---|---|
+| tvmazeId | Number | Required, positive whole number |
+| name | String | Required, trimmed, 1 to 150 characters |
+| status | String | Required, `plan_to_watch`, `watching`, `finished`, or `dropped` |
+| episodesWatched | Number | Required, whole number, 0 or more |
+| rating | Number | Between 1 and 5 |
+| createdAt, updatedAt | Date | Added automatically |
 
 List Shows (200):
 ```
@@ -198,12 +215,12 @@ curl -i http://localhost:4000/api/watchlist/<id>
 
 Create a watchlist item (201):
 ```
-curl -i -X POST http://localhost:4000/api/watchlist \ -H "Content-Type: application/json" \ -d '{"tvmazeId": 169, "status": "watching", "rating": 5}'
+curl -i -X POST http://localhost:4000/api/watchlist -H "Content-Type: application/json" -d '{"tvmazeId":169,"name":"Breaking Bad","status":"watching","episodesWatched":10,"rating":5}'
 ```
 
 Update the watchlist (200):
 ```
-curl -i -X PUT http://localhost:4000/api/shows/<ID> \ -H "Content-Type: application/json" \ -d '{"tvmazeId": 169, "name": "Updated Show"}'
+curl -i -X PUT http://localhost:4000/api/watchlist/<id> -H "Content-Type: application/json" -d '{"tvmazeId":169,"name":"Breaking Bad","status":"finished","episodesWatched":62,"rating":5}'
 ```
 
 Delete a show (204):
@@ -213,12 +230,36 @@ curl -i -X DELETE http://localhost:4000/api/watchlist/<id>
 
 Validation failure (400):
 ```
-curl -i -X POST http://localhost:4000/api/shows \ -H "Content-Type: application/json" \ -d '{"tvmazeId": "not-a-number", "name": ""}'
+curl -i -X POST http://localhost:4000/api/watchlist -H "Content-Type: application/json" -d '{"tvmazeId":0,"name":"","status":"wrong","episodesWatched":-1,"rating":10}'
 ```
 
 Unknown id (404):
 ```
-curl -i http://localhost:4000/api/watchlist/<id>
+curl -i http://localhost:4000/api/watchlist/not-a-real-id
+curl -i http://localhost:4000/api/watchlist/000000000000000000000000
+```
+Filter by status (200):
+```
+curl -i "http://localhost:4000/api/watchlist?status=watching"
+```
+Sort by rating (200):
+```
+curl -i "http://localhost:4000/api/watchlist?sort=rating"
+```
+
+Pagination (200):
+```
+curl -i "http://localhost:4000/api/watchlist?page=2&limit=10"
+```
+
+Filter, sort and paginate together (200):
+```
+curl -i "http://localhost:4000/api/watchlist?status=watching&sort=rating&page=1&limit=10"
+```
+
+Invalid sort field (400):
+```
+curl -i "http://localhost:4000/api/watchlist?sort=bogus"
 ```
 
 ### TVmaze
