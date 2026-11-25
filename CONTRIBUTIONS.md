@@ -40,6 +40,10 @@ For M2, I was responsible in creating a watchlist feature. I created both watchl
 
 For M3, I worked on the Watchlist portion of the frontend. I created a Watchlist Page where a user can add the show or a movie they would like to watch. I also created an edit section where a user can edit their current list if they had made a mistake somewhere and it allows them to change rating, status or the name using TVMazeID. Additionally I added loading.js and error.js so a person can see a loading state when the data is being fetched and giving an error message of API not working. 
 
+# M4: MongoDB persistence
+
+For M4, I created WatchlistItem.js to move our watchlist to MongoDB using mongoose. It is made to make sure the data doesn't disappear when we would turn off the site when testing it. I also added filtering, sorting, pagination and a new "episode watched" section where a person can track on which episode they are and update their rating as they are going along the show they are watching. 
+
 ## Randy
 
 ## M1: Proposal Plan
